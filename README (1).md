@@ -18,6 +18,8 @@ This is a Django-based web application designed for small businesses to manage a
 
 ## 🛠️ Setup Instructions
 
+To test if this project works. Create a valid user. Click "register as company" register under a valid username, email and password. Do the same thing for "register as customer." Log back in using the company username and password and create an appointment with the customer account you've also created. You will get an email confirming your appointment, and it will also list all the appointments you have with all your customers. Now, log in using your customer credentials, you will see a list of all the meetings you have with all the companies. 
+
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/appointment-booking.git
