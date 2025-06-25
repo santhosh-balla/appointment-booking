@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointment Calendar{% endblock %}
+
+{% block extra_head %}
+<!-- ✅ Load FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css" rel="stylesheet">
+<style>
+    #calendar {
+        max-width: 800px;
+        margin: 40px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h2>Your Appointment Calendar</h2>
+    <div id="calendar"></div>
+    <a href="{% url 'dashboard' %}" class="button">Back to Dashboard</a>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- ✅ Load FullCalendar JS at bottom of page -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            height: 600,
+            events: '/appointments/calendar/events/',  // must match your url pattern
+            eventClick: function(info) {
+                alert(info.event.title + "\n\n" + (info.event.extendedProps.description || "No details."));
+            }
+        });
+
+        calendar.render();
+    });
+</script>
+{% endblock %}

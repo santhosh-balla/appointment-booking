@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Company Dashboard{% endblock %}
+
+{% block content %}
+    <!-- Logout -->
+    <form method="post" action="{% url 'logout' %}" style="position: absolute; top: 20px; left: 20px;">
+        {% csrf_token %}
+        <button type="submit" class="button">Logout</button>
+    </form>
+
+    <h2>Welcome, {{ user.username }} (Company)</h2>
+
+    <!-- Navigation Buttons -->
+    <a href="{% url 'calendar' %}" class="button">View Calendar</a>
+    <a href="{% url 'create_appointment' %}" class="button">Create Appointment</a>
+
+    <h3>Your Appointments</h3>
+
+    {% if appointments %}
+        <ul style="text-align: left; padding-left: 0;">
+            {% for a in appointments %}
+                <li style="margin-bottom: 25px; list-style: none; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                    <strong>{{ a.title }}</strong><br>
+                    {{ a.date }} at {{ a.time }} with {{ a.customer.username }}<br>
+
+                    {% if a.notes %}
+                        <em>Notes: {{ a.notes }}</em><br>
+                    {% endif %}
+
+                    <div style="margin-top: 10px;">
+                        <a href="{% url 'edit_appointment' a.pk %}" class="button">Edit</a>
+                        <a href="{% url 'delete_appointment' a.pk %}" class="button" style="background-color: #dc3545;">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No appointments scheduled yet.</p>
+    {% endif %}
+{% endblock %}

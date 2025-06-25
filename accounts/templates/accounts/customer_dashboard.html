@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+    <!-- Logout -->
+    <form method="post" action="{% url 'logout' %}" style="position: absolute; top: 20px; left: 20px;">
+        {% csrf_token %}
+        <button type="submit" class="button">Logout</button>
+    </form>
+
+    <h2>Welcome, {{ user.username }} (Customer)</h2>
+
+    <!-- Navigation Button -->
+    <a href="{% url 'calendar' %}" class="button">View Calendar</a>
+
+    <h3>Your Upcoming Appointments</h3>
+
+    {% if appointments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in appointments %}
+                    <tr>
+                        <td>{{ a.title }}</td>
+                        <td>{{ a.company.username }}</td>
+                        <td>{{ a.date }}</td>
+                        <td>{{ a.time }}</td>
+                        <td>
+                            {% if a.notes %}
+                                <button onclick="toggleNote('note-{{ a.id }}')" class="button">View Meeting Info</button>
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if a.notes %}
+                        <tr id="note-{{ a.id }}" style="display: none;">
+                            <td colspan="5"><em>{{ a.notes }}</em></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You don't have any appointments yet.</p>
+    {% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function toggleNote(id) {
+        const row = document.getElementById(id);
+        row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+    }
+</script>
+{% endblock %}
