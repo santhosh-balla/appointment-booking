@@ -11,7 +11,7 @@ This is a Django-based web application designed for small businesses to manage a
 - Clean and simple UI
 
 ## ⚙️ Requirements
-- Python 3.10+
+- Python 3.10+ 
 - pip
 - SQLite (included by default)
 - Virtualenv (recommended)

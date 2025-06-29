@@ -14,7 +14,7 @@ send_mail(
     subject="✅ Test Email from Appointment Booking",
     message="This is a test email from your Django app.",
     from_email=os.getenv("EMAIL_HOST_USER"),
-    recipient_list=["your_email@gmail.com"],  # ✅ Change to your target email
+    recipient_list=["your_email@gmail.com"],  
     fail_silently=False,
 )
 
